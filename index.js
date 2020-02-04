@@ -8,9 +8,10 @@ const authRouter = require('./auth/auth-router');
 const usersRouter = require('./users/users-router');
 const campaignsRouter = require('./campaigns/campaigns-router');
 const organizationsRouter = require('./organizations/organizations-router');
-const { port, host } = require('./config/secrets');
+const { port } = require('./config/secrets');
 
 const server = express();
+const host = process.env.HOST || 'localhost';
 
 server.use(helmet());
 server.use(express.json());
@@ -42,7 +43,7 @@ server.use((err, req, res, next) => {
 });
 
 if (!module.parent) {
-  server.listen(port, host, () => {
+  server.listen(port, () => {
     console.log(`\n*** Server Running on http://${host}:${port} ***\n`);
   });
 }
