@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
@@ -7,10 +8,10 @@ const authRouter = require('./auth/auth-router');
 const usersRouter = require('./users/users-router');
 const campaignsRouter = require('./campaigns/campaigns-router');
 const organizationsRouter = require('./organizations/organizations-router');
+const { port } = require('./config/secrets');
 
 const server = express();
 const host = process.env.HOST || 'localhost';
-const port = process.env.PORT || 4000;
 
 server.use(helmet());
 server.use(express.json());
@@ -42,7 +43,7 @@ server.use((err, req, res, next) => {
 });
 
 if (!module.parent) {
-  server.listen(port, host, () => {
+  server.listen(port, () => {
     console.log(`\n*** Server Running on http://${host}:${port} ***\n`);
   });
 }
