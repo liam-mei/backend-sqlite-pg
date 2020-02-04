@@ -31,8 +31,7 @@ async function update(id, user) {
   await db('users')
     .where({ id })
     .update(user);
-
-  return get(id);
+  // .returning('*');
 }
 
 function del(id) {

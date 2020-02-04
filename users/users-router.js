@@ -1,8 +1,8 @@
 const express = require('express');
+const jwt = require('jsonwebtoken');
 const usersModel = require('../users/users-model');
 const { authenticate, adminOnly } = require('../middleware/authenticate');
 const { validateUserId } = require('../middleware/validate');
-const jwt = require('jsonwebtoken');
 
 const router = express.Router();
 
@@ -22,11 +22,10 @@ router.get('/:id', authenticate(), validateUserId(), async (req, res, next) => {
     const { user_type, user_id } = user.payload;
     if (user_type === 'admin' || user_id == req.params.id) {
       return res.json(req.user);
-    } else {
-      return res.status(401).json({
-        message: 'Access denied.',
-      });
     }
+    return res.status(401).json({
+      message: 'Access denied.',
+    });
   } catch (err) {
     next(err);
   }
@@ -45,8 +44,8 @@ router.put('/:id', authenticate(), validateUserId(), async (req, res, next) => {
         user_type: req.body.user_type,
         org_id: req.body.org_id,
       };
-      const user = await usersModel.update(req.params.id, newUser);
-      res.status(200).json(user);
+      const updatedUser = await usersModel.update(req.params.id, newUser);
+      res.status(200).json(updatedUser);
     } else {
       return res.status(401).json({
         message: 'Access denied.',
