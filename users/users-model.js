@@ -21,14 +21,16 @@ function getBy(filter) {
 
 async function add(user) {
   // user.password = await bcrypt.hash(user.password, 14);
-  return db('users').insert(user);
+  return db('users')
+    .insert(user)
+    .returning('*');
 }
 
 function update(id, user) {
   return db('users')
     .where({ id })
-    .update(user);
-  // .returning('*');
+    .update(user)
+    .returning('*');
 }
 
 function del(id) {
