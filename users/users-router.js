@@ -1,5 +1,6 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 const usersModel = require('../users/users-model');
 const { authenticate, adminOnly } = require('../middleware/authenticate');
 const { validateUserId } = require('../middleware/validate');
