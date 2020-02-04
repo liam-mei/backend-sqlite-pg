@@ -1,16 +1,16 @@
-const db = require('../data/config');
+/* eslint-disable no-param-reassign */
 const bcrypt = require('bcryptjs');
+const db = require('../data/config');
 
 function get(id) {
-  let query = db('users');
+  const query = db('users');
 
   if (id) {
     return query
       .where({ id })
       .first('id', 'username', 'email', 'user_type', 'org_id');
-  } else {
-    return query.select('id', 'username', 'email', 'user_type', 'org_id');
   }
+  return query.select('id', 'username', 'email', 'user_type', 'org_id');
 }
 
 function getBy(filter) {
