@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
@@ -7,10 +8,9 @@ const authRouter = require('./auth/auth-router');
 const usersRouter = require('./users/users-router');
 const campaignsRouter = require('./campaigns/campaigns-router');
 const organizationsRouter = require('./organizations/organizations-router');
+const { port, host } = require('./config/secrets');
 
 const server = express();
-const host = process.env.HOST || 'localhost';
-const port = process.env.PORT || 4000;
 
 server.use(helmet());
 server.use(express.json());
