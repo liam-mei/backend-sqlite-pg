@@ -23,7 +23,7 @@ async function add(user) {
   // user.password = await bcrypt.hash(user.password, 14);
   return db('users')
     .insert(user)
-    .returning('*')[0];
+    .returning('*');
 }
 
 function update(id, user) {

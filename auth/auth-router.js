@@ -17,7 +17,7 @@ router.post('/register', async (req, res, next) => {
       user_type: req.body.user_type,
       org_id: req.body.org_id,
     };
-    const user = await usersModel.add(newUser);
+    const [user] = await usersModel.add(newUser);
 
     // return token
     const token = signToken(user);
