@@ -1,4 +1,4 @@
-exports.up = async function(knex) {
+exports.up = async function migrate2(knex) {
   await knex.schema.createTable('campaigns', table => {
     table.increments();
     table.string('title').notNullable();
@@ -37,7 +37,7 @@ exports.up = async function(knex) {
   });
 };
 
-exports.down = async function(knex) {
+exports.down = async function rollback2(knex) {
   await knex.schema.dropTableIfExists('users_campaigns');
   await knex.schema.dropTableIfExists('campaigns');
 };
