@@ -24,13 +24,11 @@ async function add(user) {
   return db('users').insert(user);
 }
 
-async function update(id, user) {
-  user.password = await bcrypt.hash(user.password, 14);
-  await db('users')
+function update(id, user) {
+  return db('users')
     .where({ id })
-    .update(user);
-
-  return get(id);
+    .update(user)
+    .returning('*');
 }
 
 function del(id) {
